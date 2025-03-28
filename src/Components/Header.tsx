@@ -1,11 +1,19 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SearchForm from "./SearchForm";
+import { useAppStore } from "../stores/useAppStore";
 
 export const Header = () => {
   const { pathname } = useLocation();
 
   const isHomePage = useMemo(() => pathname === "/", [pathname]);
+
+  const fetchCategories = useAppStore((state) => state.fetchCategories);
+  const categories = useAppStore((state) => state.categories);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <header
@@ -41,7 +49,7 @@ export const Header = () => {
             </NavLink>
           </nav>
         </div>
-        {isHomePage && <SearchForm />}
+        {isHomePage && <SearchForm categories={categories} />}
       </div>
     </header>
   );
