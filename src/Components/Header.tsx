@@ -1,10 +1,14 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SearchForm from "./SearchForm";
 import { useAppStore } from "../stores/useAppStore";
 
 export const Header = () => {
   const { pathname } = useLocation();
+  const [searchFilters, setSearchFilters] = useState({
+    ingredient: "",
+    category: "",
+  });
 
   const isHomePage = useMemo(() => pathname === "/", [pathname]);
 
@@ -23,9 +27,9 @@ export const Header = () => {
     >
       <div className="mx-auto container px-5 py-16">
         <div className="flex justify-between items-center">
-          <div className="">
+          <NavLink to="/">
             <img src="/logo.svg" alt="Logo" className="w-32" />
-          </div>
+          </NavLink>
           <nav className="flex gap-5">
             <NavLink
               to="/"
@@ -49,7 +53,13 @@ export const Header = () => {
             </NavLink>
           </nav>
         </div>
-        {isHomePage && <SearchForm categories={categories} />}
+        {isHomePage && (
+          <SearchForm
+            categories={categories}
+            searchFilters={searchFilters}
+            setSearchFilters={setSearchFilters}
+          />
+        )}
       </div>
     </header>
   );

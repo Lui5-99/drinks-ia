@@ -1,12 +1,45 @@
+import { ChangeEvent } from "react";
 import { Categories } from "../types";
+import { useAppStore } from "../stores/useAppStore";
 
 interface SearchFormProps {
   categories: Categories;
+  searchFilters: { ingredient: string; category: string };
+  setSearchFilters: React.Dispatch<
+    React.SetStateAction<{ ingredient: string; category: string }>
+  >;
 }
 
-const SearchForm = ({ categories }: SearchFormProps) => {
+const SearchForm = ({
+  categories,
+  searchFilters,
+  setSearchFilters,
+}: SearchFormProps) => {
+  const searchRecipes = useAppStore((state) => state.searchRecipes);
+
+  const handleOnChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSearchFilters({
+      ...searchFilters,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (Object.values(searchFilters).some((value) => value === "")) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+    searchRecipes(searchFilters);
+  };
+
   return (
-    <form className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 rounded-lg p-10 shadow space-y-6">
+    <form
+      onSubmit={handleOnSubmit}
+      className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 rounded-lg p-10 shadow space-y-6"
+    >
       <div className="space-y-4">
         <label
           htmlFor="ingredient"
@@ -20,6 +53,8 @@ const SearchForm = ({ categories }: SearchFormProps) => {
           name="ingredient"
           className="bg-white p-3 w-full rounded-lg focus:outline-none"
           placeholder="Nombre o ingrediente. Ej. Vodka, Tequila, etc."
+          onChange={handleOnChange}
+          value={searchFilters.ingredient}
         />
       </div>
       <div className="space-y-4">
@@ -33,8 +68,10 @@ const SearchForm = ({ categories }: SearchFormProps) => {
           id="category"
           name="category"
           className="bg-white p-3 w-full rounded-lg focus:outline-none"
+          onChange={handleOnChange}
+          value={searchFilters.category}
         >
-          <option value="0">Selecciona una categoría</option>
+          <option value="">Selecciona una categoría</option>
           {categories.drinks.map((category) => (
             <option key={category.strCategory} value={category.strCategory}>
               {category.strCategory}
