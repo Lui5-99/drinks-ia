@@ -4,6 +4,7 @@ import Layout from "./Layouts/Layout";
 
 const IndexPage = lazy(() => import("./Views/IndexPage"));
 const FavoritePage = lazy(() => import("./Views/FavoritePage"));
+const GenerateView = lazy(() => import("./Views/GenerateView"));
 
 const router = () => {
   return (
@@ -23,6 +24,14 @@ const router = () => {
             element={
               <Suspense fallback="Cargando...">
                 <FavoritePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="generate"
+            element={
+              <Suspense fallback="Cargando...">
+                <GenerateView />
               </Suspense>
             }
           />

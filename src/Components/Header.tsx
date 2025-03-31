@@ -39,7 +39,7 @@ export const Header = () => {
                 }`
               }
             >
-              Home
+              Inicio
             </NavLink>
             <NavLink
               to="/favorites"
@@ -49,7 +49,17 @@ export const Header = () => {
                 }`
               }
             >
-              Favorites
+              Favoritos
+            </NavLink>
+            <NavLink
+              to="/generate"
+              className={({ isActive }) =>
+                `uppercase font-bold ${
+                  isActive ? "text-orange-500" : "text-white"
+                }`
+              }
+            >
+              Generar con IA
             </NavLink>
           </nav>
         </div>
