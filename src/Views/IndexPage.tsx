@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useAppStore } from "../stores/useAppStore";
 import DrinkCard from "../Components/DrinkCard";
 
-export const IndexPage = () => {
+const IndexPage = () => {
   const { drinks } = useAppStore((state) => state.drinks);
 
   const hasDrinks = useMemo(() => drinks.length > 0, [drinks]);
@@ -24,3 +24,5 @@ export const IndexPage = () => {
     </>
   );
 };
+
+export default IndexPage;

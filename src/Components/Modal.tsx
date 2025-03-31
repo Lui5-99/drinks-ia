@@ -13,8 +13,8 @@ export default function Modal() {
   const handleClickRemoveFavorites = useAppStore(
     (state) => state.handleClickRemoveFavorites
   );
-
   const favoriteExist = useAppStore((state) => state.favoriteExists);
+  const showNotification = useAppStore((state) => state.showNotification);
 
   const renderIngredients = () => {
     const ingredients: JSX.Element[] = [];
@@ -63,9 +63,17 @@ export default function Modal() {
     if (isFavorite) {
       // Remove from favorites
       handleClickRemoveFavorites(recipe);
+      showNotification({
+        text: "Receta eliminada de favoritos",
+        error: false,
+      });
     } else {
       // Add to favorites
       handleClickAddFavorites(recipe);
+      showNotification({
+        text: "Receta agregada a favoritos",
+        error: false,
+      });
     }
     closeModal();
   };

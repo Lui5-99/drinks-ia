@@ -16,6 +16,7 @@ const SearchForm = ({
   setSearchFilters,
 }: SearchFormProps) => {
   const searchRecipes = useAppStore((state) => state.searchRecipes);
+  const showNotification = useAppStore((state) => state.showNotification);
 
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
@@ -29,7 +30,10 @@ const SearchForm = ({
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (Object.values(searchFilters).some((value) => value === "")) {
-      alert("Por favor, completa todos los campos.");
+      showNotification({
+        text: "Por favor, completa todos los campos",
+        error: true,
+      });
       return;
     }
     searchRecipes(searchFilters);

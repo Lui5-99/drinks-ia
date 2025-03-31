@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Modal from "../Components/Modal";
 import { useAppStore } from "../stores/useAppStore";
 import { useEffect } from "react";
+import Notification from "../Components/Notification";
 
 const Layout = () => {
   const favoritesStored = useAppStore((state) => state.loadFromLocalStorage);
@@ -18,6 +19,7 @@ const Layout = () => {
         <Outlet />
       </main>
       <Modal />
+      <Notification />
     </>
   );
 };
