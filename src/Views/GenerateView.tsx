@@ -39,7 +39,7 @@ const GenerateView = () => {
               aria-label="Enviar"
               className={`cursor-pointer absolute top-1/2 right-5 transform -translate-x-1/2 -translate-y-1/2 ${
                 isGenerating ? "cursor-not-allowed opacity-50" : ""
-              }`}
+              } hidden md:block`}
               disabled={isGenerating}
             >
               <svg
@@ -56,6 +56,18 @@ const GenerateView = () => {
                   d="m15 11.25-3-3m0 0-3 3m3-3v7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
               </svg>
+            </button>
+          </div>
+          <div className="md:hidden">
+            <button
+              type="submit"
+              aria-label="Enviar"
+              className={`cursor-pointer w-full p-4 bg-slate-800 text-white rounded-lg ${
+                isGenerating ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              disabled={isGenerating}
+            >
+              Enviar
             </button>
           </div>
         </form>

@@ -15,7 +15,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <main className="mx-auto container py-16 ">
+      <main className="mx-auto container py-16 px-4 md:px-8">
         <Outlet />
       </main>
       <Modal />
